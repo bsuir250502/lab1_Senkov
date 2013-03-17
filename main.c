@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-//int semester(int ,struct student mas[i],int ); oops
+//int semester(int ,struct student mas[i],int ); 
 
 struct people {
 	char surname[30];
@@ -16,7 +16,8 @@ struct university {
 };
 
 int main () {
-	int n,i1,j,semester,output_number; // n - students, j - semesters, i1 - flag for semester.
+	int n,i1,j,semester,output_number; 
+    // n - students, j - semesters, i1 - flag for semester.
 	//puts("\nSelect: 1)automatic input of exams.\n   2)clever input.\nEnter 1 or 2:");
 	char exam_1[2][20]={"Math","Arithmetic"};
 	char exam_2[3][20]={"Programming","Physics","English"};
@@ -65,6 +66,7 @@ int main () {
 	scanf("%d",&output_number);
     return 1;
 }
+
 
 
 
