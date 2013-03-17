@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-//int semester(int ,struct student mas[i],int );f
+//int semester(int ,struct student mas[i],int );
 
 struct people {
 	char surname[30];
