@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdio_ext.h>
 
 //int semester(int ,struct student mas[i],int ); 
 
@@ -16,7 +17,7 @@ struct university {
 };
 
 int main () {
-	int n,i1,j,semester,output_number; 
+	int i,n,i1,j,semester,output_number; 
     // n - students, j - semesters, i1 - flag for semester.
 	//puts("\nSelect: 1)automatic input of exams.\n   2)clever input.\nEnter 1 or 2:");
 	char exam_1[2][20]={"Math","Arithmetic"};
@@ -28,7 +29,7 @@ int main () {
 	scanf("%d %d",&n,&j); // n - students, j - semesters.
  	struct university mas[n];
  	for (i=0;i<n;i++) {
-		printf("Enter information about student, №%d :",i+1);
+		printf("Enter information about student, number %d :",i+1);
 		puts("\nsurname: ");
 		__fpurge(stdin);
 		fgets(mas[i].student.surname,30,stdin) ;
@@ -58,13 +59,13 @@ int main () {
 			} 	
 		else if (semester == 4)
 			for (i1=0;i1<5;i1++) {			
-				printf("%s:\n",exam_2[i1]);
+				printf("%s:\n",exam_4[i1]);
 				scanf("%d",&mas[i].marks[i1]);
 			} 	
 	}
 	printf("Enter number of semester, in which informathion you want to know:");
 	scanf("%d",&output_number);
-    return 1;
+    return 0;
 }
 
 

@@ -1,2 +1,2 @@
 all:
-    gcc -Wall -std=c99 main.c -o lab1 
+	gcc -Wall main.c -std=c99 -o main && ./main
