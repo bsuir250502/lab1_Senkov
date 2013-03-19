@@ -17,8 +17,8 @@ struct university {
 };
 
 int main () {
-	int i,n,i1,j,semester,output_number; 
-    // n - students, j - semesters, i1 - flag for semester.
+	int i,n,i1,j,output_number,student_output_number=0; 
+    // n - students, j - semesters, i1 - flag for semester
 	//puts("\nSelect: 1)automatic input of exams.\n   2)clever input.\nEnter 1 or 2:");
 	char exam_1[2][20]={"Math","Arithmetic"};
 	char exam_2[3][20]={"Programming","Physics","English"};
@@ -40,31 +40,47 @@ int main () {
 		//semester(i,mas,j);
 		printf("Enter number of semester(max is %d): ",j);
 		scanf("%d",&mas[i].student.semester);
-		semester=mas[i].student.semester;
 		printf("\nPut marks for %s",mas[i].student.name);
-		if (semester == 1) 
+		if (mas[i].student.semester == 1) 
 			for (i1=0;i1<2;i1++) {			
 				printf("%s:\n",exam_1[i1]);
 				scanf("%d",&mas[i].marks[i1]);
 			} 
-		else if (semester == 2) 
+		else if (mas[i].student.semester == 2) 
 			for (i1=0;i1<3;i1++) {			
 				printf("%s:\n",exam_2[i1]);
 				scanf("%d",&mas[i].marks[i1]);
 			} 	
-		else if (semester == 3) 
+		else if (mas[i].student.semester == 3) 
 			for (i1=0;i1<4;i1++) {			
 				printf("%s:\n",exam_3[i1]);
 				scanf("%d",&mas[i].marks[i1]);
 			} 	
-		else if (semester == 4)
+		else if (mas[i].student.semester == 4)
 			for (i1=0;i1<5;i1++) {			
 				printf("%s:\n",exam_4[i1]);
 				scanf("%d",&mas[i].marks[i1]);
 			} 	
 	}
-	printf("Enter number of semester, in which informathion you want to know:");
+	printf("\nEnter number of semester for output:");
 	scanf("%d",&output_number);
+	for (i=0;i<n;i++) {
+		student_output_number ++;
+		if (mas[i].student.semester == output_number) 	
+		printf("\n%d. \n surname: %s \n name: %s \n patronymic: %s \n",student_output_number,mas[i].student.surname,mas[i].student.name,mas[i].student.patronymic);
+		if (mas[i].student.semester == 1) 
+			for (i1=0;i1<2;i1++)		
+				printf("%s: %d ",exam_1[i1],mas[i].marks[i]);
+		else if (mas[i].student.semester == 2) 
+			for (i1=0;i1<3;i1++) 			
+				printf("\n%s: %d",exam_2[i1],mas[i].marks[i]);
+		else if (mas[i].student.semester == 3) 
+			for (i1=0;i1<4;i1++) 			
+				printf("\n%s: %d",exam_3[i1],mas[i].marks[i]);
+		else if (mas[i].student.semester == 4)
+			for (i1=0;i1<5;i1++) 		
+				printf("\n%s: %d",exam_4[i1],mas[i].marks[i]);
+	}
     return 0;
 }
 
