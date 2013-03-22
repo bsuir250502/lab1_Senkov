@@ -2,6 +2,103 @@
 #include<stdlib.h>
 #include<stdio_ext.h>
 
+typedef struct semester {
+	char exam_1[30];
+	char exam_2[30];
+	char exam_3[30];
+	char exam_4[30];
+} semester;
+
+typedef struct student {
+	char surname[40];
+	char name[40];
+	char patronymic[40];
+	int semester_number;
+	int marks[4];
+} student;
+
+void fun_students_quantity (int *);
+void fun_student (student*,int );
+void fun_exams_select();
+void fun_exams_filling();
+
+int main () {
+	int number_of_students; 
+	fun_exams_select();                          // select exams input.
+	fun_students_quantity (&number_of_students); // input number_of_student.
+ 	student mas[number_of_students];	         // create of array for students.	
+	//semester array[4];                           // create of array for semesters.
+	//fun_exams_filling(array);	                 // exams filling.
+	fun_student (mas,number_of_students);        
+	return 0;
+}
+
+void fun_students_quantity (int *number_of_students) {  // function for input number of students. 
+	puts("\nEnter, please,  number of students:");
+	while (!scanf("%d",& *number_of_students) || *number_of_students<1) {   // n - number of students.
+		__fpurge(stdin);
+		puts("Invalid input, try again.");	
+	}
+}
+
+void fun_exams_filling () {                  // clever input of exams.
+	semester array[4];
+	puts("\nEnter, please, exams for 4 semesters:");
+	for (int i=0;i<4;i++) {
+		printf("Information about semester number %d)",i+1);
+		__fpurge(stdin);
+		puts("\n1 exam: ");
+		fgets(array[i].exam_1,30,stdin) ;
+		puts("2 exam: ");
+		fgets(array[i].exam_2,30,stdin) ;
+		puts("3 exam: ");
+		fgets(array[i].exam_3,30,stdin) ;
+		puts("4 exam: ");
+		fgets(array[i].exam_4,30,stdin) ;
+	}	
+}
+
+void fun_exams_select() {            //select exam.
+	int select, check=0;
+	puts("\nSelect type of exams input:\n1)automatic input.\n2)clever input.");
+	while(check==0) {
+		scanf("%d",&select);	
+		switch (select) {
+			case 1: 
+				fun_exams_filling ();
+				check=1;
+				break;
+			case 2: 
+				puts("2");
+				check=1;
+				break;
+			default:
+				puts("Invalid input, try again.");
+		}
+	}
+}
+
+void fun_student (student *mas,int number_of_students) {       // all informaion about student.
+	for (int i=0;i<number_of_students;i++) {
+		printf("\nInformation about student number %d)",i+1);
+		__fpurge(stdin);
+		puts("\nsurname: ");
+		fgets(mas[i].surname,40,stdin) ;
+		puts("name: ");
+		fgets(mas[i].name,40,stdin) ;
+		puts("patronymic: ");
+		fgets(mas[i].patronymic,40,stdin) ;	
+	}
+}
+
+
+
+
+/*
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdio_ext.h>
+
 //int semester(int ,struct student mas[i],int ); 
 
 struct people {
@@ -83,6 +180,7 @@ int main () {
 	}
     return 0;
 }
+*/
 
 
 
