@@ -6,7 +6,6 @@ typedef struct semester {
 	char exam_1[30];
 	char exam_2[30];
 	char exam_3[30];
-	char exam_4[30];
 } semester;
 
 typedef struct student {
@@ -19,16 +18,15 @@ typedef struct student {
 
 void fun_students_quantity (int *);
 void fun_student (student*,int );
+void fun_exams_filling(semester*);
+void fun_exams_automat(semester*);
 void fun_exams_select();
-void fun_exams_filling();
 
 int main () {
 	int number_of_students; 
 	fun_exams_select();                          // select exams input.
 	fun_students_quantity (&number_of_students); // input number_of_student.
  	student mas[number_of_students];	         // create of array for students.	
-	//semester array[4];                           // create of array for semesters.
-	//fun_exams_filling(array);	                 // exams filling.
 	fun_student (mas,number_of_students);        
 	return 0;
 }
@@ -41,10 +39,16 @@ void fun_students_quantity (int *number_of_students) {  // function for input nu
 	}
 }
 
-void fun_exams_filling () {                  // clever input of exams.
-	semester array[4];
-	puts("\nEnter, please, exams for 4 semesters:");
-	for (int i=0;i<4;i++) {
+void fun_exams_automat (semester* array) {
+	/*array[0]={"Math","Arithmetic","History"};
+	array[1]={"Programming","Physics","English"};
+	array[2]={"Math","Algorithmization","Programming"};*/
+	
+}
+
+void fun_exams_filling (semester* array) {                  // clever input of exams.
+	puts("Enter, please, exams for 3 semesters:");
+	for (int i=0;i<3;i++) {
 		printf("Information about semester number %d)",i+1);
 		__fpurge(stdin);
 		puts("\n1 exam: ");
@@ -53,23 +57,22 @@ void fun_exams_filling () {                  // clever input of exams.
 		fgets(array[i].exam_2,30,stdin) ;
 		puts("3 exam: ");
 		fgets(array[i].exam_3,30,stdin) ;
-		puts("4 exam: ");
-		fgets(array[i].exam_4,30,stdin) ;
 	}	
 }
 
 void fun_exams_select() {            //select exam.
 	int select, check=0;
+	semester array[3];
 	puts("\nSelect type of exams input:\n1)automatic input.\n2)clever input.");
 	while(check==0) {
 		scanf("%d",&select);	
 		switch (select) {
 			case 1: 
-				fun_exams_filling ();
+				fun_exams_automat(array);
 				check=1;
 				break;
 			case 2: 
-				puts("2");
+				fun_exams_filling(array);
 				check=1;
 				break;
 			default:
