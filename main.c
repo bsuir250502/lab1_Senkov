@@ -19,13 +19,14 @@ typedef struct student {
 void fun_students_quantity (int *);
 void fun_exams_filling(semester *);
 void fun_exams_automat(semester *);
-void fun_exams_select();
-void fun_student(student *,int ,semester *);
+void fun_exams_select(semester *);
+void fun_student_input(student *,int ,semester *);
 void fun_student_output(student *,int ,semester *);
 
 int main () {
-	int number_of_students; 
-	fun_exams_select();                                   // select exams input.
+	int number_of_students;
+	semester array[3];                                     
+	fun_exams_select(array);                              // select exams input.
 	fun_students_quantity (&number_of_students);          // input number_of_student.
  	student mas[number_of_students];	                  // create of array for students.	
 	fun_student_input (mas,number_of_students,array);     // input information about students.
@@ -62,9 +63,8 @@ void fun_exams_filling (semester *array) {                  // clever input of e
 	}
 }
 
-void fun_exams_select() {            //select exam.
+void fun_exams_select(semester * array) {            //select exam.
 	int select, check=0;
-	semester array[3];
 	puts("\nSelect type of exams input:\n1)automatic input.\n2)clever input.");
 	while (check==0) {
 		scanf("%d",&select);	
@@ -99,20 +99,20 @@ void fun_student_input (student *mas, int number_of_students, semester *array) {
 			puts("Invalid input,try again.");		
 		}
 
-		puts("----------------- Marks ------------------");
+		puts("\n----------------- Marks ------------------");
 
 		printf("\nPut marks for %s",mas[i].name);
-		printf("%s:",array[mas[i].semester_number - 1].exam_1);
+		printf("%s mark:",array[mas[i].semester_number - 1].exam_1);
 		while (!scanf("%d",&mas[i].marks[0]) || mas[i].marks[0]<1 || mas[i].marks[0]>10) {
 			__fpurge(stdin);
 			puts("Invalid input,try again.");	
 		}
-		printf("%s:",array[mas[i].semester_number - 1].exam_2);
+		printf("%s mark:",array[mas[i].semester_number - 1].exam_2);
 		while (!scanf("%d",&mas[i].marks[1]) || mas[i].marks[1]<1 || mas[i].marks[1]>10) {
 			__fpurge(stdin);
 			puts("Invalid input,try again.");	
 		}
-		printf("%s:",array[mas[i].semester_number - 1].exam_3);
+		printf("%s mark:",array[mas[i].semester_number - 1].exam_3);
 		while (!scanf("%d",&mas[i].marks[2]) || mas[i].marks[2]<1 || mas[i].marks[2]>10) {
 			__fpurge(stdin);
 			puts("Invalid input,try again.");	
@@ -121,38 +121,24 @@ void fun_student_input (student *mas, int number_of_students, semester *array) {
 }
 
 void fun_student_output (student *mas, int number_of_students, semester *array) {
-	puts("------------ Output of information ------------");
-}
-
-
-/*
-	char exam_1[2][20]={"Math","Arithmetic"};
-	char exam_2[3][20]={"Programming","Physics","English"};
-	char exam_3[4][20]={"Math","Algorithmization","Programming","History"};
-	char exam_4[5][20]={"Physics","Logic","Math","English","Programming"};
-
-	printf("\nEnter number of semester for output:");
-	scanf("%d",&output_number);
-	for (i=0;i<n;i++) {
-		student_output_number ++;
-		if (mas[i].student.semester == output_number) 	
-		printf("\n%d. \n surname: %s \n name: %s \n patronymic: %s \n",student_output_number,mas[i].student.surname,mas[i].student.name,mas[i].student.patronymic);
-		if (mas[i].student.semester == 1) 
-			for (i1=0;i1<2;i1++)		
-				printf("%s: %d ",exam_1[i1],mas[i].marks[i]);
-		else if (mas[i].student.semester == 2) 
-			for (i1=0;i1<3;i1++) 			
-				printf("\n%s: %d",exam_2[i1],mas[i].marks[i]);
-		else if (mas[i].student.semester == 3) 
-			for (i1=0;i1<4;i1++) 			
-				printf("\n%s: %d",exam_3[i1],mas[i].marks[i]);
-		else if (mas[i].student.semester == 4)
-			for (i1=0;i1<5;i1++) 		
-				printf("\n%s: %d",exam_4[i1],mas[i].marks[i]);
+	int output_number;
+	int student_output_number=0;
+	puts("\n------------ Output of information ------------");
+	puts("\nEnter, please, number of semester for output:");
+	while (!scanf("%d",&output_number) || output_number<1 || output_number>3) {
+			__fpurge(stdin);
+			puts("Invalid input,try again.");
 	}
-    return 0;
+	for (int i=0;i<number_of_students;i++) {
+		student_output_number ++;
+		if (mas[i].semester_number == output_number) {	
+			printf("\n%d. \n surname: %s name: %s patronymic: %s \n",student_output_number,mas[i].surname,mas[i].name,mas[i].patronymic);	
+			printf("%s mark: %d \n",array[output_number-1].exam_1,mas[i].marks[0]);
+			printf("%s mark: %d \n",array[output_number-1].exam_2,mas[i].marks[1]);
+			printf("%s mark: %d \n",array[output_number-1].exam_3,mas[i].marks[2]);	
+		}
+	}	
 }
-*/
 
 
 
