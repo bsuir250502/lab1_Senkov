@@ -140,21 +140,11 @@ void students_input(student_t * mas, int number_of_students,  semester_t * array
 
 void input_of_marks(student_t * mas, semester_t * array, int i)
 {
-	int enumeration_of_marks;
+	int number_of_mark;
     puts("\n----------------- Marks ------------------");
     printf("\nPut marks for %s", mas[i].name);
-    printf("%s mark:", array[mas[i].semester_number - 1].exam_1);
-    while (!scanf("%d", &mas[i].marks[0]) || mas[i].marks[0] < 1 || mas[i].marks[0] > 10) {
-        __fpurge(stdin);
-        puts("Invalid input,try again.");
-    }
-    printf("%s mark:", array[mas[i].semester_number - 1].exam_2);
-    while (!scanf("%d", &mas[i].marks[1]) || mas[i].marks[1] < 1 || mas[i].marks[1] > 10) {
-        __fpurge(stdin);
-        puts("Invalid input,try again.");
-    }
-    printf("%s mark:", array[mas[i].semester_number - 1].exam_3);
-    while (!scanf("%d", &mas[i].marks[2]) || mas[i].marks[2] < 1 || mas[i].marks[2] > 10) {
+    for (number_of_mark = 0; number_of_mark < 3; number_of_mark++)
+    while (!scanf("%d", &mas[i].marks[number_of_mark]) || mas[i].marks[number_of_mark] < 1 || mas[i].marks[number_of_mark] > 10) {
         __fpurge(stdin);
         puts("Invalid input,try again.");
     }
@@ -162,24 +152,22 @@ void input_of_marks(student_t * mas, semester_t * array, int i)
 
 void students_output(student_t * mas, int number_of_students, semester_t * array)   /* output. */
 {                               
-    int output_number, i;
+    int semester_output_number, i;
     int student_output_number = 0, flag = 0;
-
     puts("\n------------ Output of information ------------");
-
     puts("\nEnter, please, number of semester for output:");
     do {
-        while (!scanf("%d", &output_number) || output_number < 1 || output_number > 3) {
+        while (!scanf("%d", &semester_output_number) || semester_output_number < 1 || semester_output_number > 3) {
             __fpurge(stdin);
             puts("Invalid input,try again.");
         }
         for (i = 0; i < number_of_students; i++) {
             student_output_number++;
-            if (mas[i].semester_number == output_number) {
+            if (mas[i].semester_number == semester_output_number) {
                 printf("\n%d. \n surname: %s name: %s patronymic: %s \n", student_output_number, mas[i].surname, mas[i].name, mas[i].patronymic);
-                printf("%s : %d \n", array[output_number - 1].exam_1, mas[i].marks[0]);
-                printf("%s : %d \n", array[output_number - 1].exam_2, mas[i].marks[1]);
-                printf("%s : %d \n", array[output_number - 1].exam_3, mas[i].marks[2]);
+                printf("%s : %d \n", array[semester_output_number - 1].exam_1, mas[i].marks[0]);
+                printf("%s : %d \n", array[semester_output_number - 1].exam_2, mas[i].marks[1]);
+                printf("%s : %d \n", array[semester_output_number - 1].exam_3, mas[i].marks[2]);
                 flag = 1;
             }
         }
