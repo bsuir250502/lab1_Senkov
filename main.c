@@ -18,6 +18,7 @@ typedef struct student {
 
 void students_quantity(int *);
 char *check_input();
+//char* input_valid_data(char, int, check);
 void exams_filling(semester_t *);
 void exams_automat(semester_t *);
 void exams_select(semester_t *);
@@ -59,6 +60,8 @@ char *check_input()    /* function for checking input infomation (srting). */
     return input_text;
 }
  
+
+
 void students_quantity(int *number_of_students)    /* function for input number of students. */
 {                              
     puts("\nEnter, please,  number of students(max is 30):");
@@ -140,7 +143,7 @@ void students_input(student_t * mas, int number_of_students,  semester_t * array
 
 void input_of_marks(student_t * mas, semester_t * array, int i)
 {
-	int number_of_mark;
+    int number_of_mark;
     puts("\n----------------- Marks ------------------");
     printf("\nPut marks for %s", mas[i].name);
     for (number_of_mark = 0; number_of_mark < 3; number_of_mark++)
