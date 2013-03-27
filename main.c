@@ -163,7 +163,7 @@ void students_output(student_t * mas, int number_of_students, semester_t * array
         }
         for (i = 0; i < number_of_students; i++) {
             if (mas[i].semester_number == semester_output_number) {
-				student_output_number++;
+                student_output_number++;
                 printf("\n%d. \n surname: %s name: %s patronymic: %s \n", student_output_number, mas[i].surname, mas[i].name, mas[i].patronymic);
                 printf("%s : %d \n", array[semester_output_number - 1].exam_1, mas[i].marks[0]);
                 printf("%s : %d \n", array[semester_output_number - 1].exam_2, mas[i].marks[1]);
