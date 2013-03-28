@@ -17,8 +17,7 @@ typedef struct student {
 } student_t;
 
 void students_quantity(int *);
-char *check_input();
-//char* input_valid_data(char, int, check);
+char *input_valid_data();
 void exams_filling(semester_t *);
 void exams_automat(semester_t *);
 void exams_select(semester_t *);
@@ -39,14 +38,14 @@ int main()
     exams_select(array);                             /* select exams input. */
     students_quantity(&number_of_students);          /* input number_of_student. */
     students_input(mas, number_of_students, array);  /* input information about students. */
-    students_output(mas, number_of_students, array); /* output. */
+    students_output(mas, number_of_students, array); /* output. */	
     return 0;
 }
 
-char *check_input()    /* function for checking input infomation (srting). */
-{                               
+char *input_valid_data()    /* function for checking input infomation (srting). */
+{   
     char *input_text;
-    input_text = (char *)malloc(sizeof(char));
+	input_text = (char *)malloc(sizeof(char));                        
     do {
         __fpurge(stdin);
         fgets(input_text, 30, stdin);
@@ -59,8 +58,6 @@ char *check_input()    /* function for checking input infomation (srting). */
     } while (1);
     return input_text;
 }
- 
-
 
 void students_quantity(int *number_of_students)    /* function for input number of students. */
 {                              
@@ -71,7 +68,7 @@ void students_quantity(int *number_of_students)    /* function for input number 
     }
 }
 
-void exams_automat(semester_t * array)    /* automat input of exams. */
+void automat_input_of_exams(semester_t * array)    /* automat input of exams. */
 {                               
     int i;
     puts("\nList of exams:");
@@ -83,7 +80,7 @@ void exams_automat(semester_t * array)    /* automat input of exams. */
     }
 }
 
-void exams_filling(semester_t * array)    /* clever input of exams. */
+void manual_input_of_exams(semester_t * array)    /* clever input of exams. */
 {                               
     int i;
     puts("Enter, please, exams for 3 semesters:");
@@ -91,27 +88,27 @@ void exams_filling(semester_t * array)    /* clever input of exams. */
         printf("Information about semester number %d)", i + 1);
         __fpurge(stdin);
         puts("\n1 exam: ");
-        array[i].exam_1 = check_input();
+        array[i].exam_1 = input_valid_data();
         puts("2 exam: ");
-        array[i].exam_2 = check_input();
+        array[i].exam_2 = input_valid_data();
         puts("3 exam: ");
-        array[i].exam_3 = check_input();
+        array[i].exam_3 = input_valid_data();
     }
 }
 
 void exams_select(semester_t * array)    /* select exam. */
 {                               
     int select, check = 0;
-    puts("\nSelect type of exams input:\n1)automatic input.\n2)clever input.");
+    puts("\nSelect type of exams input:\n1)automatic input.\n2)manual input.");
     while (check == 0) {
         scanf("%d", &select);
         switch (select) {
         case 1:
-            exams_automat(array);
+            automat_input_of_exams(array);
             check = 1;
             break;
         case 2:
-            exams_filling(array);
+            manual_input_of_exams(array);
             check = 1;
             break;
         default:
@@ -127,11 +124,11 @@ void students_input(student_t * mas, int number_of_students,  semester_t * array
         printf("\nInformation about student number %d)", i + 1);
         __fpurge(stdin);
         puts("\nsurname: ");
-        mas[i].surname = check_input();
+        mas[i].surname = input_valid_data();
         puts("name: ");
-        mas[i].name = check_input();
+        mas[i].name = input_valid_data();
         puts("patronymic: ");
-        mas[i].patronymic = check_input();
+        mas[i].patronymic = input_valid_data();
         puts("Enter number of semester(max is 3): ");
         while (!scanf("%d", &mas[i].semester_number) || mas[i].semester_number < 1 || mas[i].semester_number > 3) {
             __fpurge(stdin);
