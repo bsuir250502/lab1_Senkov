@@ -44,7 +44,7 @@ int main()
 
 char *input_valid_data()    /* function for checking input infomation (srting). */
 {   
-    char *input_text;
+    char *input_text; 
 	input_text = (char *)malloc(sizeof(char));                        
     do {
         __fpurge(stdin);
