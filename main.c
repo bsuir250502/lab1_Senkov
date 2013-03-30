@@ -7,12 +7,12 @@ typedef struct semester {
     char *exam_1;
     char *exam_2;
     char *exam_3;
-} semester_t;
+} semester_t;      
 
 typedef struct student {
     char *surname;
     char *name;
-    char *patronymic;
+    char *patronymic; 
     int semester_number;
     int marks[3];
 } student_t;
