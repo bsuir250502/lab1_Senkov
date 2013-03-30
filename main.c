@@ -43,7 +43,34 @@ int main()
     return 0;
 }
 
-void automat_input_of_exams(semester_t * array)    /* automat input of exams. */
+/* function for checking input infomation (srting). */
+/*char *input_valid_data()    
+{   
+    char *input_text; 
+	input_text = (char *)malloc(sizeof(char));                        
+    do {
+        __fpurge(stdin);
+        fgets(input_text, 30, stdin);
+        if (input_text[0] == '\n' || input_text[0] == ' ') {
+            puts("Invalid input, try again.");
+            continue;
+		}
+		else
+            break;
+    } while (1);
+    return input_text;
+
+void students_quantity(int *number_of_students)   
+{                              
+    puts("\nEnter, please,  number of students(max is 30):");
+    while (!scanf("%d", &*number_of_students) || *number_of_students < 1) {   
+        __fpurge(stdin);
+        puts("Invalid input, try again.");
+    }
+} */
+
+/* automat input of exams. */
+void automat_input_of_exams(semester_t * array)    
 {                               
     int i;
     puts("\nList of exams:");
@@ -55,7 +82,8 @@ void automat_input_of_exams(semester_t * array)    /* automat input of exams. */
     }
 }
 
-void manual_input_of_exams(semester_t * array)    /* clever input of exams. */
+/* clever input of exams. */
+void manual_input_of_exams(semester_t * array)    
 {                               
     int i;
     puts("Enter, please, exams for 3 semesters:");
@@ -71,7 +99,8 @@ void manual_input_of_exams(semester_t * array)    /* clever input of exams. */
     }
 }
 
-void exams_select(semester_t * array)    /* select exam. */
+/* select exam. */
+void exams_select(semester_t * array) 
 {                               
     int select, check = 0;
     puts("\nSelect type of exams input:\n1)automatic input.\n2)manual input.");
@@ -92,7 +121,8 @@ void exams_select(semester_t * array)    /* select exam. */
     }
 }
 
-void students_input(student_t * mas, int number_of_students,  semester_t * array)    /* input of all informaion about student. */
+/* input of all informaion about student. */
+void students_input(student_t * mas, int number_of_students,  semester_t * array)    
 {                               
     int i;
     for (i = 0; i < number_of_students; i++) {
@@ -113,6 +143,7 @@ void students_input(student_t * mas, int number_of_students,  semester_t * array
     }
 }
 
+/* input of marks */
 void input_of_marks(student_t * mas, semester_t * array, int i)
 {
     int number_of_mark;
@@ -125,7 +156,8 @@ void input_of_marks(student_t * mas, semester_t * array, int i)
     }
 }
 
-void students_output(student_t * mas, int number_of_students, semester_t * array)   /* output. */
+ /* output of all necessary information */
+void students_output(student_t * mas, int number_of_students, semester_t * array)  
 {                               
     int semester_output_number, i;
     int student_output_number = 0, flag = 0;
