@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio_ext.h>
 
-char *input_valid_data();
-void students_quantity(int *number_of_students);
+void input_valid_string_data(char *information, char *input_text, int max_number_of_symbols);
+int input_valid_int_data(char *information, int Min, int Max);
 
 #endif /* _LIB1_H_ */

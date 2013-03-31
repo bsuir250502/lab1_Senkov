@@ -2,13 +2,14 @@
 #include<stdlib.h>
 #include<stdio_ext.h>
 #include"lib1.h"
+
 #define max_number_of_sems 42
 #define max_number_of_exams 10
 #define max_number_of_students 30
 #define max_number_of_symbols 60
 
 typedef struct semester {
-    char *exams[256];
+    char exams[max_number_of_exams][max_number_of_symbols];
     int number_of_exams;
 } semester_t;      
 
@@ -25,41 +26,30 @@ typedef struct student {
 } student_t;
 
 /* functions from lib1.h */
-void students_quantity(int *);
-char *input_valid_data();
+void input_valid_string_data(char *, char *, int);
+int input_valid_int_data(char *,int ,int );
 
 /* functions for exams */
-int information_about_semesters(semester_t *, int);
-int select_input_of_exams(semester_t *, int);
-int manual_input_of_exams(semester_t *, int);
-int automat_input_of_exams(semester_t *, int);
+int select_input_of_exams(semester_t *);
+int manual_input_of_exams(semester_t *);
+int automat_input_of_exams(semester_t *);
 
 /* functions for students */
-void information_about_students(student_t *, semester_t *, int, int);
+void information_about_students(student_t *, semester_t *, int);
 void students_input(student_t *, semester_t *, int, int);
-void input_of_marks(student_t *, semester_t *, int);
-void students_output(student_t *, int, semester_t *, int);
+void input_of_marks(student_t *, semester_t *, int, int);
+void students_output(student_t *, semester_t *, int, int);
 
 int main()
 {
     student_t students[max_number_of_students];    /* create of array for students. */
     semester_t semesters[max_number_of_sems];  /* create of array for semesters. */
-    information_about_semesters(semesters, max_number_of_exams);  /* all information about semesters. */
-    int number_of_semesters = 20;
-    information_about_students(students, semesters, number_of_semesters);  /* all information about students. */
+    information_about_students(students, semesters, select_input_of_exams(semesters));  /* all information about students. */
     return 0;
 }
 
-/* all information for semesters */
-int information_about_semesters(semester_t *semesters, int max_number_of_exams)
-{
-    int number_of_semesters;
-    number_of_semesters = select_input_of_exams(semesters, max_number_of_sems); 
-    return number_of_students;   
-}
-
 /* select input for exams */
-int select_input_of_exams(semester_t * semesters, int max_number_of_sems) 
+int select_input_of_exams(semester_t * semesters) 
 {
     int select;
     puts ("\nSelect type of exams input:\n"
@@ -68,11 +58,13 @@ int select_input_of_exams(semester_t * semesters, int max_number_of_sems)
     while (1) {
         scanf ("%d", &select);
         switch (select) {
-        case 1: 
-            return automat_input_of_exams(semesters, max_number_of_sems);
+        case 1:
+            __fpurge(stdin); 
+            return automat_input_of_exams(semesters);
             break;
         case 2:
-            return manual_input_of_exams(semesters, max_number_of_sems);
+            __fpurge(stdin);
+            return manual_input_of_exams(semesters);
             break;
         default:
              puts("Invalid input, try again.");
@@ -81,62 +73,53 @@ int select_input_of_exams(semester_t * semesters, int max_number_of_sems)
 }
 
 /* automat input of exams */
-int automat_input_of_exams(semester_t * semesters, int max_number_of_sems)    
+int automat_input_of_exams(semester_t * semesters)    
 {
     int i;
-    semesters[0].exams = {"Math", "Arithmetic", "History"};
+    semesters[0].exams = {"Math, Arithmetic, History"};
     semesters[0].number_of_exams = 3 ;
-    semesters[1].exams = {"Programming", "Physics", "English"};
+    semesters[1].exams = "Programming, Physics, English";
     semesters[1].number_of_exams = 3 ;
-    semesters[2].exams = {"Math", "Algorithmization", "Programming"};
+    semesters[2].exams = "Math, Algorithmization, Programming";
     semesters[2].number_of_exams = 3 ;
     puts("\nList of exams:");
     for (i = 0; i < 3; i++) {
-        printf(" %d semester : %s\n", i + 1, semesters[i].exams);
+        printf(" %d semester : %s\n", i + 1, *semesters[i].exams);
     }
     return 3;
  }
 
 /* manual input of exams */
-int manual_input_of_exams(semester_t * semesters, int max_number_of_sems)    
+int manual_input_of_exams(semester_t * semesters)    
 {                               
     int i,number_of_semesters;
-    printf("Enter, please, number of semesters for input\n"
-           "(Max number is %d)",max_number_of_sems);
-    scanf("%d",&number_of_semesters);
+    number_of_semesters = input_valid_int_data("Enter, please, number of semesters for input", 1, max_number_of_sems);
     for (i = 0; i < number_of_semesters; i++) {
-        printf("Information about exams for semester number %d)", i + 1);
-        __fpurge(stdin);
-        printf("Number of exams (max is %d):",max_number_of_exams);
-        scanf("%d",&semesters[i].number_of_exams);
-        semesters[i].exams = input_valid_data();
+        printf("\nInformation about exams for semester number %d)", i + 1);
+        semesters[i].number_of_exams = input_valid_int_data("\nNumber of exams", 1, max_number_of_exams);
+        input_valid_string_data( "\nEnter exams titles:", *semesters[i].exams, max_number_of_symbols);
     }
     return number_of_semesters;
 }
 
 /* all information of students */
-void information_about_students(student_t * students, int max_number_of_students,  semester_t * semesters, int number_of_semesters)    
-{                      
-    printf("\nEnter, please,  number of students(max is %d):",max_number_of_students);
-    scanf("%d",number_of_students);
-    number_of_students = students_quantity(&number_of_students); 
-    students_input(students, number_of_student, semesters, number_of_students, number_of_semesters)
-    students_output(students, number_of_students, semesters, number_of_semesters, number_of_semesters); 
+void information_about_students(student_t * students, semester_t * semesters, int number_of_semesters)    
+{   
+    int number_of_students;                   
+    number_of_students = input_valid_int_data("\nEnter, please,  number of students", 1, max_number_of_students); 
+    students_input(students, semesters, number_of_students, number_of_semesters);
+    students_output(students, semesters, number_of_students, number_of_semesters); 
 }
 
 /* input of all information for students */
-void students_input(student_t *students, semester_t *semesters, int number_of_student, int number_of_semesters)    
+void students_input(student_t *students, semester_t *semesters, int number_of_students, int number_of_semesters)    
 {                      
     int i;
     for (i = 0; i < number_of_students; i++) {
         printf("\nInformation about student number %d)", i + 1);
-        __fpurge(stdin);
-        puts("\nsurname: ");
-        students[i].surname = input_valid_data();
-        puts("name: ");
-        students[i].name = input_valid_data();
-        puts("patronymic: ");
-        students[i].patronymic = input_valid_data();
+        input_valid_string_data( "\nsurname: ", students[i].surname, max_number_of_symbols);
+        input_valid_string_data("name: ", students[i].name, max_number_of_symbols);
+        input_valid_string_data("patronymic: ", students[i].patronymic, max_number_of_symbols);
         input_of_marks(students, semesters, i, number_of_semesters);
     }	
 }
@@ -148,31 +131,27 @@ void input_of_marks(student_t *students, semester_t *semesters, int i, int numbe
     puts("\n----------------- Marks ------------------");
     printf("\nPut marks for %s", students[i].name);
     for (j = 0; j < number_of_semesters; j++) {
-        printf("semester number %d \n",j + 1
-               "exams: %s",semesters[j].exams);
+        printf("Semester number %d \nExams: %s", j + 1, *semesters[j].exams);
         students[i].marks[j].semester_number=j;
+        puts("\n");
         for (j1 = 0; j1 < semesters[i].number_of_exams; j1++) {
-            scanf("%d",students[i].marks[j].marks[j1]);
+        students[i].marks[j].marks[j1] = input_valid_int_data("mark:", 1, 10);
         }
     }
 }
 
 /* output of all necessary information */
-void students_output(student_t *students, int number_of_students, semester_t *semesters, int number_of_semesters)  
+void students_output(student_t *students, semester_t *semesters, int number_of_students, int number_of_semesters)  
 {                               
-    int semester_output_number, i, j, j1;
-    puts("\n------------ Output of information ------------\n"
-         "Enter, please, number of semester for output:");
-    scanf("%d", &semester_output_number);
+    int semester_output_number, i, j;
+    puts("\n------------ Output of information ------------\n");
+    semester_output_number = input_valid_int_data("Enter number of semester for output:", 1, number_of_semesters);
     for (i = 0; i < number_of_students; i++) {
-        printf("\n%d.\n surname: %s name: %s patronymic: %s \n", i, students[i].surname, students[i].name, students[i].patronymic);
-        for (j = 0; j < number_of_semesters; j++) {
-            if (studentsmas[i].marks[j].semester_number == semester_output_number) {
-            printf("Exams: %s \n", semesters[semester_output_number].exams
-                   "Marks:");
-            for (j1 = 0; j1 < semesters[semester_output_number].number_of_exams; j1++) {
-                printf("%d",students[i].marks[semester_output_number].marks[j1]);
-            }
+        printf("\n%d.\n surname: %s name: %s patronymic: %s \n", i + 1, students[i].surname, students[i].name, students[i].patronymic);
+        printf("Exams: %s \nMarks:", *semesters[semester_output_number].exams);
+        for (j = 0; j < semesters[semester_output_number].number_of_exams; j++) {
+            printf("%d ",students[i].marks[semester_output_number].marks[j]);
         }
     }
+    puts("\n\nEnd.\n");
 }

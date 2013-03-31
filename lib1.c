@@ -1,31 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio_ext.h>
 
 /* function for input and valid infomation (srting). */
-char *input_valid_data()    
+void input_valid_string_data(char *information, char *input_text, int max_number_of_symbols)    
 {   
-    char *input_text; 
-    input_text = (char *)malloc(30*sizeof(char)); 
-    do {    
-        __fpurge(stdin);
-        fgets(input_text, 30, stdin);
+    while (1) {
+        printf("%s", information);    
+        fgets(input_text, max_number_of_symbols, stdin);
         if (input_text[0] == '\n' || input_text[0] == ' ') {
             puts("Invalid input, try again.");
-            continue;
         }
-        else
+        else {
             break;
-    } while (1);
-    return input_text;
+        }
+    }
 }
 
 /* function for input and valid infomation (int). */
-void students_quantity(int *number_of_students)   
-{                              
-    puts("\nEnter, please,  number of students(max is 30):");
-    while (!scanf("%d", &*number_of_students) || *number_of_students < 1) {   
-        __fpurge(stdin);
-        puts("Invalid input, try again.");
+int input_valid_int_data(char *information, int Min, int Max)   
+{   
+    int input_text;
+    char input_buffer[128];                           
+    printf("%s (min - %d, max - %d): ", information, Min, Max);
+    while (1) {
+        fgets(input_buffer, 128, stdin);
+        if (!(input_text = atoi(input_buffer)) || input_text < Min || input_text > Max) {
+            puts("Invalid input, try again.");
+        }
+        else {
+            break;
+        }
     }
+    return input_text;
 }
