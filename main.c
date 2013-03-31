@@ -42,9 +42,9 @@ void students_output(student_t *, semester_t *, int, int);
 
 int main()
 {
-    student_t students[max_number_of_students];    /* create of array for students. */
-    semester_t semesters[max_number_of_sems];  /* create of array for semesters. */
-    information_about_students(students, semesters, select_input_of_exams(semesters));  /* all information about students. */
+    student_t students[max_number_of_students];    
+    semester_t semesters[max_number_of_sems];  
+    information_about_students(students, semesters, select_input_of_exams(semesters)); 
     return 0;
 }
 
@@ -76,11 +76,11 @@ int select_input_of_exams(semester_t * semesters)
 int automat_input_of_exams(semester_t * semesters)    
 {
     int i;
-    semesters[0].exams = {"Math, Arithmetic, History"};
+    semesters[0].exams = {"Math", "Arithmetic", "History"};
     semesters[0].number_of_exams = 3 ;
-    semesters[1].exams = "Programming, Physics, English";
+    semesters[1].exams = {"Programming", "Physics", "English"};
     semesters[1].number_of_exams = 3 ;
-    semesters[2].exams = "Math, Algorithmization, Programming";
+    semesters[2].exams = {"Math", "Algorithmization", "Programming"};
     semesters[2].number_of_exams = 3 ;
     puts("\nList of exams:");
     for (i = 0; i < 3; i++) {
