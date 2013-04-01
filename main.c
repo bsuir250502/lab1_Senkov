@@ -39,11 +39,11 @@ void information_about_students(student_t *, semester_t *, int);
 void students_input(student_t *, semester_t *, int, int);
 void input_of_marks(student_t *, semester_t *, int, int);
 void students_output(student_t *, semester_t *, int, int);
-void auxiliary_information_for_user(char **argv, int argc);
+void auxiliary_information_for_user(int argc, char **argv);
 
-int main(char **argv, int argc)
+int main(int argc, char **argv)
 {
-    auxiliary_information_for_user(argv,argc);
+    auxiliary_information_for_user(argc,argv);
     student_t students[max_number_of_students];
     semester_t semesters[max_number_of_sems];
     information_about_students(students, semesters, select_input_of_exams(semesters));
@@ -51,7 +51,7 @@ int main(char **argv, int argc)
 }
 
 /* -h */
-void auxiliary_information_for_user(char **argv, int argc)
+void auxiliary_information_for_user(int argc, char **argv)
 {
     if (argc > 1 && !strcmp(argv[1], "-h")) {
         puts("\n=====================================================================\n"
