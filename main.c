@@ -9,7 +9,7 @@
 #define max_number_of_symbols 60
 
 typedef struct semester {
-    char exams[max_number_of_exams][max_number_of_symbols];
+    char *exams;
     int number_of_exams;
 } semester_t;      
 
@@ -52,39 +52,28 @@ int main()
 int select_input_of_exams(semester_t * semesters) 
 {
     int select;
-    puts ("\nSelect type of exams input:\n"
-            "1)automatic input.\n"
-            "2)manual input.");
-    while (1) {
-        scanf ("%d", &select);
-        switch (select) {
-        case 1:
-            __fpurge(stdin); 
-            return automat_input_of_exams(semesters);
-            break;
-        case 2:
-            __fpurge(stdin);
-            return manual_input_of_exams(semesters);
-            break;
-        default:
-             puts("Invalid input, try again.");
-        }
+    select = input_valid_int_data("\nSelect type of exams input:\n 1)automatic input.\n 2)manual input.\nSymbols for input:", 1, 2);
+    if (select == 1) { 
+        return automat_input_of_exams(semesters);
+    }
+    else {
+        return manual_input_of_exams(semesters);
     }
 }
 
 /* automat input of exams */
 int automat_input_of_exams(semester_t * semesters)    
-{
+{   //char exams[max_number_of_symbols];
     int i;
-    semesters[0].exams = {"Math", "Arithmetic", "History"};
+    semesters[0].exams = "Math, Arithmetic, History";
     semesters[0].number_of_exams = 3 ;
-    semesters[1].exams = {"Programming", "Physics", "English"};
+    semesters[1].exams = "Programming, Physics, English";
     semesters[1].number_of_exams = 3 ;
-    semesters[2].exams = {"Math", "Algorithmization", "Programming"};
+    semesters[2].exams = "Math, Algorithmization, Programming";
     semesters[2].number_of_exams = 3 ;
     puts("\nList of exams:");
     for (i = 0; i < 3; i++) {
-        printf(" %d semester : %s\n", i + 1, *semesters[i].exams);
+        printf(" %d semester : %s\n", i + 1, semesters[i].exams);
     }
     return 3;
  }
@@ -97,7 +86,8 @@ int manual_input_of_exams(semester_t * semesters)
     for (i = 0; i < number_of_semesters; i++) {
         printf("\nInformation about exams for semester number %d)", i + 1);
         semesters[i].number_of_exams = input_valid_int_data("\nNumber of exams", 1, max_number_of_exams);
-        input_valid_string_data( "\nEnter exams titles:", *semesters[i].exams, max_number_of_symbols);
+        semesters[i].exams=(char*)malloc(max_number_of_symbols*sizeof(char));
+        input_valid_string_data( "\nEnter exams titles:", semesters[i].exams, max_number_of_symbols);
     }
     return number_of_semesters;
 }
@@ -131,7 +121,7 @@ void input_of_marks(student_t *students, semester_t *semesters, int i, int numbe
     puts("\n----------------- Marks ------------------");
     printf("\nPut marks for %s", students[i].name);
     for (j = 0; j < number_of_semesters; j++) {
-        printf("Semester number %d \nExams: %s", j + 1, *semesters[j].exams);
+        printf("Semester number %d \nExams: %s", j + 1, semesters[j].exams);
         students[i].marks[j].semester_number=j;
         puts("\n");
         for (j1 = 0; j1 < semesters[i].number_of_exams; j1++) {
@@ -148,10 +138,13 @@ void students_output(student_t *students, semester_t *semesters, int number_of_s
     semester_output_number = input_valid_int_data("Enter number of semester for output:", 1, number_of_semesters);
     for (i = 0; i < number_of_students; i++) {
         printf("\n%d.\n surname: %s name: %s patronymic: %s \n", i + 1, students[i].surname, students[i].name, students[i].patronymic);
-        printf("Exams: %s \nMarks:", *semesters[semester_output_number].exams);
+        printf("Exams: %s \nMarks:", semesters[semester_output_number].exams);
         for (j = 0; j < semesters[semester_output_number].number_of_exams; j++) {
-            printf("%d ",students[i].marks[semester_output_number].marks[j]);
+            printf(" %d",students[i].marks[semester_output_number].marks[j]);
         }
+    }
+    for (i = 0; i < number_of_semesters; i++) {
+        free(semesters[i].exams);
     }
     puts("\n\nEnd.\n");
 }
