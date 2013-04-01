@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"lib1.h"
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "lib1.h"
+#include <string.h>
 
 #define max_number_of_sems 42
 #define max_number_of_exams 10
