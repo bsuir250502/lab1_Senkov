@@ -9,7 +9,7 @@
 #define MAX_NUMBER_OF_SYMBOLS 40
 
 typedef struct semester {
-    char exams[MAX_NUMBER_OF_EXAMS];
+    char exams[MAX_NUMBER_OF_SYMBOLS];
     int number_of_exams;
 } semester_t;      
 
@@ -28,6 +28,7 @@ typedef struct student {
 /* functions from lib1.h */
 void input_valid_string_data(char *, char *, int);
 int input_valid_int_data(char *,int ,int );
+void auxiliary_information_for_user();
 
 /* functions for exams */
 int select_input_of_exams(semester_t *);
@@ -39,36 +40,17 @@ void information_about_students(student_t *, semester_t *, int);
 void students_input(student_t *, semester_t *, int, int);
 void input_of_marks(student_t *, semester_t *, int, int);
 void students_output(student_t *, semester_t *, int, int);
-void auxiliary_information_for_user(int argc, char **argv);
 
 int main(int argc, char **argv)
 {
-    auxiliary_information_for_user(argc,argv);
+    if (argc > 1 && !strcmp(argv[1], "-h")) {
+        auxiliary_information_for_user();
+        exit(0);
+    }
     student_t students[MAX_NUMBER_OF_STUDENTS];
     semester_t semesters[MAX_NUMBER_OF_SEMS];
     information_about_students(students, semesters, select_input_of_exams(semesters));
     return 0;
-}
-
-/* -h */
-void auxiliary_information_for_user(int argc, char **argv)
-{
-    if (argc > 1 && !strcmp(argv[1], "-h")) {
-        puts("\n=====================================================================\n"
-             "MANUAL:\n\n"
-             "1)Select variant of input of exams:\n"
-             "- automatic input.\n"
-             "- manual input of exams.\n"
-             "2)Enter information about students:\n"
-             "- name.\n"
-             "- sername.\n"
-             "- patronymic.\n"
-             "- marks.\n"
-             "3)Enter number of semester, for output information about this semester.\n"
-             "                      >>And output of main task<< \n"
-             "=====================================================================\n");
-        exit(0);
-    }
 }
 
 /* select input for exams */
@@ -102,8 +84,8 @@ int automat_input_of_exams(semester_t * semesters)
  }
 
 /* manual input of exams */
-int manual_input_of_exams(semester_t * semesters)    
-{                          
+int manual_input_of_exams(semester_t * semesters)
+{
     int i,number_of_semesters;
     number_of_semesters = input_valid_int_data("Enter, please, number of semesters for input", 1, MAX_NUMBER_OF_SEMS);
     for (i = 0; i < number_of_semesters; i++) {
@@ -115,16 +97,16 @@ int manual_input_of_exams(semester_t * semesters)
 }
 
 /* all information of students */
-void information_about_students(student_t * students, semester_t * semesters, int number_of_semesters)    
+void information_about_students(student_t * students, semester_t * semesters, int number_of_semesters)
 {
-    int number_of_students;                   
-    number_of_students = input_valid_int_data("\nEnter, please,  number of students", 1, MAX_NUMBER_OF_STUDENTS); 
+    int number_of_students;
+    number_of_students = input_valid_int_data("\nEnter, please,  number of students", 1, MAX_NUMBER_OF_STUDENTS);
     students_input(students, semesters, number_of_students, number_of_semesters);
-    students_output(students, semesters, number_of_students, number_of_semesters); 
+    students_output(students, semesters, number_of_students, number_of_semesters);
 }
 
 /* input of all information for students */
-void students_input(student_t *students, semester_t *semesters, int number_of_students, int number_of_semesters)    
+void students_input(student_t *students, semester_t *semesters, int number_of_students, int number_of_semesters)
 {
     int i;
     for (i = 0; i < number_of_students; i++) {
