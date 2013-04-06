@@ -28,7 +28,7 @@ typedef struct student {
 /* functions from lib1.h */
 void input_valid_string_data(char *, char *, int);
 int input_valid_int_data(char *,int ,int );
-void auxiliary_information_for_user();
+void help_output();
 
 /* functions for exams */
 int select_input_of_exams(semester_t *);
@@ -43,12 +43,12 @@ void students_output(student_t *, semester_t *, int, int);
 
 int main(int argc, char **argv)
 {
-    if (argc > 1 && !strcmp(argv[1], "-h")) {
-        auxiliary_information_for_user();
-        exit(0);
-    }
     student_t students[MAX_NUMBER_OF_STUDENTS];
     semester_t semesters[MAX_NUMBER_OF_SEMS];
+    if (argc > 1 && !strcmp(argv[1], "-h")) {
+        help_output();
+        exit(0);
+    }
     information_about_students(students, semesters, select_input_of_exams(semesters));
     return 0;
 }
